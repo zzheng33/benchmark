@@ -1,4 +1,4 @@
-
+include ../../common/make.config
 ifdef OUTPUT
 override OUTPUT = -DOUTPUT
 endif
