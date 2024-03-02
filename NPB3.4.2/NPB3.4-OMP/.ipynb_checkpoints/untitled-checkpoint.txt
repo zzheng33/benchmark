@@ -1,0 +1,23 @@
+        
+//     char file_name[20];
+//     sprintf(file_name, "/home/john/Node-Sharing/DNN_PT/result/NPB_result/papi/papi_res_is_%c.csv", CLASS);
+//     FILE *file;
+
+//     file = fopen(file_name, "r");
+//     int write_header = (file == NULL);
+//     if (file != NULL) {
+//         fclose(file);
+//     }
+//     file = fopen(file_name, "a");
+
+//     if (write_header) {
+//         fprintf(file, "PAPI_L1_DCM, PAPI_L2_DCM\n");
+//     }
+//     int num_threads = omp_get_max_threads();
+
+//     // Write the collected event values for all threads
+//     for (int i = 0; i < num_threads; i++) {
+//         fprintf(file, "%lld,%lld\n", all_values[i][0], all_values[i][1]);
+//     }
+
+//     fclose(file);
