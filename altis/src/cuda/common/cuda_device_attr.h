@@ -1,20 +1,20 @@
-/* This header file is used for Quadro RTX 6000. */
+/* This header file is used for NVIDIA GeForce RTX 2060. */
 #ifndef __CUDA_DEVICE_ATTR_H__
 #define __CUDA_DEVICE_ATTR_H__
 
 #define CUDA_DEVICE_NUM    1
 #define CUDA_DEVICE_ID    0
-#define CUDA_DEVICE_NAME    "Quadro RTX 6000"
+#define CUDA_DEVICE_NAME    "NVIDIA GeForce RTX 2060"
 #define CUDA_MAJOR_VERSION    12
 #define CUDA_MINOR_VERSION    2
 #define CUDA_MAJOR_CAPABILITY    7
 #define CUDA_MINOR_CAPABILITY    5
-#define GLOBAL_MEM    25388515328
-#define SM_COUNT    72
+#define GLOBAL_MEM    6179454976
+#define SM_COUNT    30
 #define CUDA_CORES_PER_SM    64
-#define CUDA_CORES    4608
-#define MEM_BUS_WIDTH    384
-#define L2_CACHE_SIZE    6291456
+#define CUDA_CORES    1920
+#define MEM_BUS_WIDTH    192
+#define L2_CACHE_SIZE    3145728
 #define MAX_TEXTURE_1D_DIM    131072
 #define MAX_TEXTURE_2D_X    131072
 #define MAX_TEXTURE_2D_Y    65536
