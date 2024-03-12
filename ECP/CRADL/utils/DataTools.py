@@ -74,7 +74,7 @@ class ALEDataset(data.Dataset):
 
     def __init__(self, 
                  data_dir="", 
-                 label_type=np.long, 
+                 label_type=np.int32, 
                  is_time_series=False,
                  df_numbers=[],
                  randomize=True,
