@@ -102,7 +102,7 @@ if __name__ == '__main__':
         print("Loading Data")
 
     start_data_load_batch = time.time()
-    label_type     = np.long
+    label_type     = np.int32
     is_time_series = True
     inf_data, data_loader, samples, data_size = generateALEDataLoader(inference_dir,
                                                                       inference_f,
