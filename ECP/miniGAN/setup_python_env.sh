@@ -5,19 +5,18 @@ PYT=python3
 
 #${PIP} install --upgrade pip --user
 
-${PIP} install --user virtualenv
 
-${PYT} -m venv minigan_torch_env
 
-source minigan_torch_env/bin/activate
+${PYT} -m venv minigan_env
+
+source minigan_env/bin/activate
 
 ${PIP} install numpy 
-${PIP} install torch
-${PIP} install torchvision
-${PIP} install horovod
+${PIP} install wheel
+${PIP} install torch==1.4.0
+${PIP} install torchvision==0.5.0
+${PIP} install horovod==0.18.2
 ${PIP} install tensorboard
-${PIP} install matplotlib==3.0.0
+${PIP} install matplotlib
 
-${PIP} list
-
-
+deactivate
