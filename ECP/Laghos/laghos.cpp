@@ -666,7 +666,7 @@ int main(int argc, char *argv[])
          t = t_old;
          S = S_old;
          hydro.ResetQuadratureData();
-         if (Mpi::Root()) { cout << "Repeating step " << ti << endl; }
+         // if (Mpi::Root()) { cout << "Repeating step " << ti << endl; }
          if (steps < max_tsteps) { last_step = false; }
          ti--; continue;
       }
