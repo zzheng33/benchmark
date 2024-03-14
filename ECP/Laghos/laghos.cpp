@@ -700,24 +700,24 @@ int main(int argc, char *argv[])
          {
             const double sqrt_norm = sqrt(norm);
 
-            cout << std::fixed;
-            cout << "step " << std::setw(5) << ti
-                 << ",\tt = " << std::setw(5) << std::setprecision(4) << t
-                 << ",\tdt = " << std::setw(5) << std::setprecision(6) << dt
-                 << ",\t|e| = " << std::setprecision(10) << std::scientific
-                 << sqrt_norm;
+            // cout << std::fixed;
+            // cout << "step " << std::setw(5) << ti
+            //      << ",\tt = " << std::setw(5) << std::setprecision(4) << t
+            //      << ",\tdt = " << std::setw(5) << std::setprecision(6) << dt
+            //      << ",\t|e| = " << std::setprecision(10) << std::scientific
+            //      << sqrt_norm;
             //  << ",\t|IE| = " << std::setprecision(10) << std::scientific
             //  << internal_energy
             //   << ",\t|KE| = " << std::setprecision(10) << std::scientific
             //  << kinetic_energy
             //   << ",\t|E| = " << std::setprecision(10) << std::scientific
             //  << kinetic_energy+internal_energy;
-            cout << std::fixed;
-            if (mem_usage)
-            {
-               cout << ", mem: " << mmax << "/" << msum << " MB";
-            }
-            cout << endl;
+            // cout << std::fixed;
+            // if (mem_usage)
+            // {
+            //    cout << ", mem: " << mmax << "/" << msum << " MB";
+            // }
+            // cout << endl;
          }
 
          // Make sure all ranks have sent their 'v' solution before initiating
