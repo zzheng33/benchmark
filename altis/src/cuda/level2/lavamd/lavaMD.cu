@@ -55,9 +55,9 @@ void RunBenchmark(ResultDatabase &resultDB, OptionParser &op) {
 
     int passes = op.getOptionInt("passes");
     for (int i = 0; i < passes; i++) {
-        if (!quiet) { printf("Pass %d: ", i); }
+        
         runTest(resultDB, op, boxes1d);
-        if (!quiet) { printf("Done.\n"); }
+        
     }
 }
 
