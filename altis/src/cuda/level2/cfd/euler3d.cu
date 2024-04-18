@@ -45,7 +45,7 @@
 /// <remarks>	Ed, 5/20/2020. </remarks>
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-#define iterations 1
+#define iterations 10
 // #ifndef block_length
 // 	#define block_length 192
 // #endif
