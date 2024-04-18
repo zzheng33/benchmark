@@ -1069,13 +1069,9 @@ void RunBenchmark(ResultDatabase &resultDB, OptionParser &op) {
 
     int passes = op.getOptionInt("passes");
     for(int i = 0; i < passes; i++) {
-        if(!quiet) {
-            printf("Pass %d: ", i);
-        }
+        
         particlefilter_naive(resultDB, op, args);
-        if(!quiet) {
-            printf("Done.\n");
-        }
+       
     }
 }
 
