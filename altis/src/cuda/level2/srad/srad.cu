@@ -174,9 +174,7 @@ void RunBenchmark(ResultDatabase &resultDB, OptionParser &op) {
         assert(matrix);
     }
     random_matrix(matrix, imageSize, imageSize);
-    if (!quiet) {
-        printf("Pass %d:\n", i);
-    }
+
     float time = srad(resultDB, op, matrix, imageSize, speckleSize, iters);
     if (!quiet) {
         printf("Running SRAD...Done.\n");
