@@ -320,12 +320,8 @@ void RunBenchmark(ResultDatabase &resultDB, OptionParser &op) {
     for (int i = 0; i < passes; i++) {
         kernelTime = 0.0f;
         transferTime = 0.0f;
-        if(!quiet) {
-            printf("Pass %d: ", i);
-        }
+
         where(resultDB, op, size, coverage);
-        if(!quiet) {
-            printf("Done.\n");
-        }
+
     }
 }
