@@ -282,9 +282,7 @@ void RunBenchmark(ResultDatabase &resultDB, OptionParser &op) {
     const bool uvm_prefetch_advise = op.getOptionBool("uvm-prefetch-advise");
 
     for (int i = 0; i < passes; i++) {
-        if (!quiet) {
-            printf("Pass %d:\n", i);
-        }
+        
         
         if (uvm || uvm_advise || uvm_prefetch || uvm_prefetch_advise) {
             float timeUM = BFSGraphUnifiedMemory(resultDB, op, no_of_nodes, edge_list_size, source, h_graph_nodes, h_graph_edges);
