@@ -213,9 +213,7 @@ void RunBenchmark(ResultDatabase &resultDB, OptionParser &op) {
   checkCudaErrors(cudaEventCreate(&stop));
 
   for (int it = 0; it < iterations; it++) {
-    if(!quiet) {
-        printf("Pass %d: ", it);
-    }
+    
 /// <summary>	Initialize host memory to some pattern. </summary>
     for (uint i = 0; i < size; i++) {
       hKeys[i] = i % 1024;
