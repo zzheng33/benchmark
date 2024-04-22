@@ -1,32 +1,62 @@
-is  C
-is  B
-is  D
-is  W
-is  S
-is  A
-dc  W
-dc  S
-dc  A
-dc  B
-cg  D
-mg  D
-ep  D
-cg  C
-mg  C
-ep  C
-cg  B
-mg  B
-ep  B
-cg  W
-mg  W
-ep  W
-cg  S
-mg  S
-ep  S
-lu  W
-lu  S
-lu  A
-lu  B
-lu  C
-lu  D
-lu  E
+cg S
+cg W
+cg A
+cg B
+cg C
+cg D
+
+FT S
+FT W
+FT A
+FT B
+FT C
+FT D
+
+MG S
+MG W
+MG A
+MG B
+MG D
+MG E
+
+is S
+is W
+is A
+is B
+is C
+is D
+
+ep S
+ep W
+ep A
+ep B
+ep C
+ep D
+
+sp S
+sp W
+sp A
+sp B
+sp C
+sp D
+
+bt S
+bt W
+bt A
+bt B
+bt C
+bt D
+
+lu S
+lu W
+lu A
+lu B
+lu C
+lu D
+
+ua S
+ua W
+ua A
+ua B
+ua C
+ua D
