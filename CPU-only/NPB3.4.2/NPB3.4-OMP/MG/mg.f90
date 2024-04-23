@@ -139,11 +139,11 @@
          Class = 'B'
       else if( nx(lt) .eq. 512 .and. nit .eq. 20 ) then  
          Class = 'C'
-      else if( nx(lt) .eq. 1024 .and. nit .eq. 50 ) then  
+      else if( nx(lt) .eq. 1024 .and. nit .eq. 30 ) then  
          Class = 'D'
-      else if( nx(lt) .eq. 2048 .and. nit .eq. 50 ) then  
+      else if( nx(lt) .eq. 2048 .and. nit .eq. 30 ) then  
          Class = 'E'
-      else if( nx(lt) .eq. 4096 .and. nit .eq. 50 ) then  
+      else if( nx(lt) .eq. 4096 .and. nit .eq. 30 ) then  
          Class = 'F'
       else
          Class = 'U'
