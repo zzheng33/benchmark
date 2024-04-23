@@ -48,7 +48,6 @@
 #include <errno.h>
 #include <ctype.h>
 #include <math.h>
-#include <papi.h>
 
 #ifdef _OPENMP
 #include <omp.h>
@@ -97,11 +96,6 @@ int Verify(long long int checksum,ADC_VIEW_PARS *adcpp);
 
 int main ( int argc, char * argv[] ) 
 {
-  if (PAPI_library_init(PAPI_VER_CURRENT) != PAPI_VER_CURRENT) {
-        fprintf(stderr, "PAPI library initialization failed.\n");
-        exit(1);
-    }
-    
   ADC_PAR *parp;
   ADC_VIEW_PARS *adcpp;
   int32 retCode;
@@ -173,25 +167,7 @@ int32		 PartitionCube(ADC_VIEW_CNTL *avp);
 ADC_VIEW_CNTL *NewAdcViewCntl(ADC_VIEW_PARS *adcpp, uint32 pnum);
 int32		 ComputeGivenGroupbys(ADC_VIEW_CNTL *adccntl);
 
-
-
-// PAPI events
-#define NUM_EVENTS 2
-int events[NUM_EVENTS] = {PAPI_L1_DCM, PAPI_L2_DCM};
-unsigned long get_thread_id_wrapper() {
-    return (unsigned long)omp_get_thread_num();
-}
 int32 DC(ADC_VIEW_PARS *adcpp) {
-   int n_threads = omp_get_max_threads();
-    long long **all_values = (long long **)malloc(n_threads * sizeof(long long *));
-    for (int i = 0; i < n_threads; i++) {
-        all_values[i] = (long long *)malloc(NUM_EVENTS * sizeof(long long));
-    }
-    // Initialize PAPI threads
-    if (PAPI_thread_init(get_thread_id_wrapper) != PAPI_OK) {
-        fprintf(stderr, "PAPI thread initialization failed.\n");
-        exit(1);
-    }
    int32 itsk=0;
    double t_total=0.0;
    int verified;
@@ -223,32 +199,8 @@ int32 DC(ADC_VIEW_PARS *adcpp) {
               adcpp->nTasks);
    }
 #pragma omp parallel shared(pvstp) private(itsk)
-    
 #endif
   {
-   // PAPI code
-    int thread_id = omp_get_thread_num();
-    int retval;
-    long long values[NUM_EVENTS];
-    int event_set = PAPI_NULL;
-
-    retval = PAPI_create_eventset(&event_set);
-    if (retval != PAPI_OK) {
-        fprintf(stderr, "PAPI failed to create event set for thread %d.\n", thread_id);
-        exit(1);
-    }
-
-    retval = PAPI_add_events(event_set, events, NUM_EVENTS);
-    if (retval != PAPI_OK) {
-        fprintf(stderr, "PAPI failed to add events for thread %d.\n", thread_id);
-        exit(1);
-    }
-
-    retval = PAPI_start(event_set);
-    if (retval != PAPI_OK) {
-        fprintf(stderr, "PAPI failed to start counters for thread %d.\n", thread_id);
-        exit(1);
-    }
    double tm0=0;
    int itimer=0;
    ADC_VIEW_CNTL *adccntlp;
@@ -256,8 +208,7 @@ int32 DC(ADC_VIEW_PARS *adcpp) {
    itsk=omp_get_thread_num();
 #endif
    adccntlp = NewAdcViewCntl(adcpp, itsk);
-   
-   
+
    if (!adccntlp) { 
       PutErrMsg("ParRun.NewAdcViewCntl: returned NULL")
       adccntlp->verificationFailed=1;
@@ -299,50 +250,9 @@ int32 DC(ADC_VIEW_PARS *adcpp) {
      PutErrMsg("ParRun.CloseAdcView: is failed");
      adccntlp->verificationFailed = 1;
    }
-      
-    // PAPI code
-    retval = PAPI_stop(event_set, values);
-    if (retval != PAPI_OK) {
-        fprintf(stderr, "PAPI failed to stop counters for thread %d.\n", thread_id);
-        exit(1);
-    }
-    
-
-    all_values[thread_id][0] = values[0];
-    all_values[thread_id][1] = values[1];
-
-
-    // printf("Thread %d: L1 DCM: %lld, L2 DCM: %lld\n", thread_id, all_values[thread_id][0], all_values[thread_id][1]);
-      
-    PAPI_cleanup_eventset(event_set);
-    PAPI_destroy_eventset(&event_set);
  } /* omp parallel */
 
-    t_total=pvstp->tm_max; 
-    
-    char file_name[20];
-    sprintf(file_name, "/home/john/Node-Sharing/DNN_PT/result/NPB_result/papi/papi_res_dc_%c.csv", CLASS);
-    FILE *file;
-
-    file = fopen(file_name, "r");
-    int write_header = (file == NULL);
-    if (file != NULL) {
-        fclose(file);
-    }
-    file = fopen(file_name, "a");
-
-    if (write_header) {
-        fprintf(file, "PAPI_L1_DCM, PAPI_L2_DCM\n");
-    }
-    int num_threads = omp_get_max_threads();
-
-    // Write the collected event values for all threads
-    for (int i = 0; i < num_threads; i++) {
-    fprintf(file, "%lld,%lld\n", all_values[i][0], all_values[i][1]);
-}
-
-    fclose(file);
- 
+   t_total=pvstp->tm_max; 
  
    pvstp->verificationFailed=Verify(pvstp->checksum,adcpp);
    verified = (pvstp->verificationFailed == -1)? -1 :

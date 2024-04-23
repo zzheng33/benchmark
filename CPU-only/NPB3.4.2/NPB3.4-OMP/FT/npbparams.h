@@ -7,13 +7,13 @@
 !  
         integer nx, ny, nz, maxdim, niter_default
         parameter (nx=2048, ny=1024, nz=1024, maxdim=2048)
-        parameter (niter_default=25)
+        parameter (niter_default=10)
         integer kind2
         parameter (kind2=8)
         logical  convertdouble
         parameter (convertdouble = .false.)
         character compiletime*11
-        parameter (compiletime='22 Apr 2024')
+        parameter (compiletime='23 Apr 2024')
         character npbversion*5
         parameter (npbversion='3.4.2')
         character cs1*8

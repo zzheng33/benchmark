@@ -1,9 +1,3 @@
-cg S
-cg W
-cg A
-cg B
-cg C
-cg D
 
 FT S
 FT W
@@ -19,52 +13,3 @@ MG B
 MG C
 MG D
 MG E
-
-is S
-is W
-is A
-is B
-is C
-is D
-
-ep S
-ep W
-ep A
-ep B
-ep C
-ep D
-
-sp S
-sp W
-sp A
-sp B
-sp C
-sp D
-
-bt S
-bt W
-bt A
-bt B
-bt C
-bt D
-
-lu S
-lu W
-lu A
-lu B
-lu C
-lu D
-
-ua S
-ua W
-ua A
-ua B
-ua C
-ua D
-
-dc S
-dc W
-dc A
-dc B
-dc C
-dc D
