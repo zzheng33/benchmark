@@ -497,9 +497,9 @@ void write_mg_info(FILE *fp, char class)
   else if (class == 'A') { problem_size = 256; nit = 4; }
   else if (class == 'B') { problem_size = 256; nit = 20; }
   else if (class == 'C') { problem_size = 512; nit = 20; }
-  else if (class == 'D') { problem_size = 1024; nit = 50; }
-  else if (class == 'E') { problem_size = 2048; nit = 50; }
-  else if (class == 'F') { problem_size = 4096; nit = 50; }
+  else if (class == 'D') { problem_size = 1024; nit = 25; }
+  else if (class == 'E') { problem_size = 2048; nit = 5; }
+  else if (class == 'F') { problem_size = 4096; nit = 5; }
   else {
     printf("setparams: Internal error: invalid class type %c\n", class);
     exit(1);
@@ -656,7 +656,7 @@ void write_ft_info(FILE *fp, char class)
   else if (class == 'A') { nx = 256; ny = 256; nz = 128; niter = 6;}
   else if (class == 'B') { nx = 512; ny = 256; nz = 256; niter =20;}
   else if (class == 'C') { nx = 512; ny = 512; nz = 512; niter =20;}
-  else if (class == 'D') { nx = 2048; ny = 1024; nz = 1024; niter =25;}
+  else if (class == 'D') { nx = 2048; ny = 1024; nz = 1024; niter =10;}
   else if (class == 'E') { nx = 4096; ny = 2048; nz = 2048; niter =25;}
   else if (class == 'F') { nx = 8192; ny = 4096; nz = 4096; niter =25;}
   else {
