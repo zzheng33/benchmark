@@ -570,7 +570,7 @@ void write_cg_info(FILE *fp, char class)
   else if( class == 'C' )
   { na=150000; nonzer=15; niter=75; shift="110."; }
   else if( class == 'D' )
-  { na=1500000; nonzer=21; niter=30; shift="500."; }
+  { na=1500000; nonzer=21; niter=10; shift="500."; }
   else if( class == 'E' )
   { na=9000000; nonzer=26; niter=100; shift="1.5d3"; }
   else if( class == 'F' )
