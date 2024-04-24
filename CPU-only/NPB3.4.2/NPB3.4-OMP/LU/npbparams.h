@@ -12,13 +12,13 @@
 
 ! number of iterations and how often to print the norm
         integer itmax_default, inorm_default
-        parameter (itmax_default=300, inorm_default=300)
+        parameter (itmax_default=100, inorm_default=100)
         double precision dt_default
         parameter (dt_default = 1.0d0)
         logical  convertdouble
         parameter (convertdouble = .false.)
         character compiletime*11
-        parameter (compiletime='23 Apr 2024')
+        parameter (compiletime='24 Apr 2024')
         character npbversion*5
         parameter (npbversion='3.4.2')
         character cs1*8

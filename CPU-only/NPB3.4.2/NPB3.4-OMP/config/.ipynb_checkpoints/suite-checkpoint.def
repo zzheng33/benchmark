@@ -1,15 +1,45 @@
+cg B
+cg C
+cg D
+cg E
 
-FT S
-FT W
-FT A
+
 FT B
 FT C
 FT D
 
-MG S
-MG W
-MG A
+
 MG B
 MG C
 MG D
 MG E
+
+
+is B
+is C
+is D
+
+
+ep B
+ep C
+ep D
+
+
+sp B
+sp C
+sp D
+
+
+bt B
+bt C
+bt D
+
+
+lu B
+lu C
+lu D
+
+
+ua B
+ua C
+ua D

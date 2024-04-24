@@ -1,4 +1,4 @@
-! CLASS = D
+! CLASS = E
 !  
 !  
 !  This file is generated automatically by the setparams utility.
@@ -7,16 +7,16 @@
 !  
         integer            na, nonzer, niter
         double precision   shift, rcond
-        parameter(  na=1500000, &
-     &              nonzer=21, &
+        parameter(  na=9000000, &
+     &              nonzer=26, &
      &              niter=100, &
-     &              shift=500., &
+     &              shift=1.5d3, &
      &              rcond=1.0d-1 )
-        integer, parameter :: kz=4
+        integer, parameter :: kz=8
         logical  convertdouble
         parameter (convertdouble = .false.)
         character compiletime*11
-        parameter (compiletime='23 Apr 2024')
+        parameter (compiletime='24 Apr 2024')
         character npbversion*5
         parameter (npbversion='3.4.2')
         character cs1*8
