@@ -147,9 +147,9 @@ void RunBenchmark(ResultDatabase &resultDB, OptionParser &op) {
 
   int passes = op.getOptionInt("passes");
   for (int i = 0; i < passes; i++) {
-      if(!quiet) {
-          printf("Pass %d: ", i);
-      }
+      // if(!quiet) {
+      //     printf("Pass %d: ", i);
+      // }
       max_rows = dim;
       max_cols = dim;
       runTest(resultDB, op);

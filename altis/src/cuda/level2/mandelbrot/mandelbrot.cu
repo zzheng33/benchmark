@@ -737,9 +737,9 @@ void RunBenchmark(ResultDatabase &resultDB, OptionParser &op) {
 
     int passes = op.getOptionInt("passes");
     for (int i = 0; i < passes; i++) {
-        if (!quiet) {
-            printf("Pass %d:\n", i);
-        }
+        // if (!quiet) {
+        //     printf("Pass %d:\n", i);
+        // }
 
         kernelTime = 0.0f;
         transferTime = 0.0f;

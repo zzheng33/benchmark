@@ -527,9 +527,9 @@ void RunBenchmark(ResultDatabase &resultDB, OptionParser &op)
     int passes = op.getOptionInt("passes");
     for (int i = 0; i < passes; i++) {
         bool lastPass = i+1 == passes;
-        if(!quiet) {
-            printf("Pass %d:\n", i);
-        }
+        // if(!quiet) {
+        //     printf("Pass %d:\n", i);
+        // }
         /* DWT */
         if (forward == 1) {
             if(dwt97 == 1 ) {
