@@ -286,26 +286,26 @@ void RunBenchmark(ResultDatabase &resultDB, OptionParser &op) {
         
         if (uvm || uvm_advise || uvm_prefetch || uvm_prefetch_advise) {
             float timeUM = BFSGraphUnifiedMemory(resultDB, op, no_of_nodes, edge_list_size, source, h_graph_nodes, h_graph_edges);
-            if (!quiet) {
-                if (timeUM == FLT_MAX) {
-                    printf("Executing BFS using unified memory...Error.\n");
-                } else {
-                    printf("Executing BFS using unified memory...Done.\n");
-                }
-            }
+            // if (!quiet) {
+            //     if (timeUM == FLT_MAX) {
+            //         printf("Executing BFS using unified memory...Error.\n");
+            //     } else {
+            //         printf("Executing BFS using unified memory...Done.\n");
+            //     }
+            // }
             //if(time != FLT_MAX && timeUM != FLT_MAX) {
             if(timeUM != FLT_MAX) {
                 //resultDB.AddResult("bfs_unifiedmem_speedup", atts, "N", time/timeUM);
             }
         } else {
             float time = BFSGraph(resultDB, op, no_of_nodes, edge_list_size, source, h_graph_nodes, h_graph_edges);
-            if (!quiet) {
-                if (time == FLT_MAX) {
-                    printf("Executing BFS...Error.\n");
-                } else {
-                    printf("Executing BFS...Done.\n");
-                }
-            }
+            // if (!quiet) {
+            //     if (time == FLT_MAX) {
+            //         printf("Executing BFS...Error.\n");
+            //     } else {
+            //         printf("Executing BFS...Done.\n");
+            //     }
+            // }
         }
     }
 

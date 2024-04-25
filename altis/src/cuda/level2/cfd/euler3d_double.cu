@@ -813,9 +813,9 @@ void RunBenchmark(ResultDatabase &resultDB, OptionParser &op) {
         transferTime = 0.0f;
         
         cfd(resultDB, op);
-        if(!quiet) {
-            printf("Done.\n");
-        }
+        // if(!quiet) {
+        //     printf("Done.\n");
+        // }
     }
 
 }

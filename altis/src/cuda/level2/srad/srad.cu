@@ -176,9 +176,9 @@ void RunBenchmark(ResultDatabase &resultDB, OptionParser &op) {
     random_matrix(matrix, imageSize, imageSize);
 
     float time = srad(resultDB, op, matrix, imageSize, speckleSize, iters);
-    if (!quiet) {
-        printf("Running SRAD...Done.\n");
-    }
+    // if (!quiet) {
+    //     printf("Running SRAD...Done.\n");
+    // }
     if (coop) {
         // if using cooperative groups, add result to compare the 2 times
         char atts[1024];

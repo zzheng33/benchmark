@@ -465,13 +465,13 @@ bool verifySort(uint *keys, uint *vals, const size_t size, bool verbose, bool qu
       }
     }
   }
-  if (!quiet) {
-      cout << "Test ";
-      if (passed) {
-          cout << "Passed" << endl;
-      } else {
-          cout << "Failed" << endl;
-      }
-  }
+  // if (!quiet) {
+  //     cout << "Test ";
+  //     if (passed) {
+  //         cout << "Passed" << endl;
+  //     } else {
+  //         cout << "Failed" << endl;
+  //     }
+  // }
   return passed;
 }

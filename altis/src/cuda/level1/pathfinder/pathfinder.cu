@@ -123,9 +123,9 @@ void RunBenchmark(ResultDatabase &resultDB, OptionParser &op) {
   for (int i = 0; i < passes; i++) {
 
     run(borderCols, smallBlockCol, blockCols, resultDB, op);
-    if(!quiet) {
-        printf("Done.\n");
-    }
+    // if(!quiet) {
+    //     printf("Done.\n");
+    // }
   }
 }
 
