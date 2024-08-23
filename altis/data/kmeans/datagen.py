@@ -25,7 +25,8 @@ if __name__ == '__main__':
     print("Generating %d objects with %d %s attributes each" % (n,a, 'float' if f else 'integer'))
 
     # seed random number generator
-    random.seed(datetime.now())
+    random.seed(int(datetime.now().timestamp()))
+
 
     if(f):
         name = 'kmeans_f_%d_%d' % (n,a)
