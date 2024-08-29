@@ -1,6 +1,6 @@
 #!/bin/bash
 pip install pandas
-pip install torch==0.4.0
+pip install torch==1.4.0
 pip install torchvision==0.5.0
 pip install apex
 pip install GPUtil
