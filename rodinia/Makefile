@@ -23,6 +23,7 @@ CUDA:
 	cd cuda/gaussian;		make;	cp gaussian $(CUDA_BIN_DIR)
 	cd cuda/heartwall;		make;	cp heartwall $(CUDA_BIN_DIR)
 	cd cuda/hotspot;		make;	cp hotspot $(CUDA_BIN_DIR)
+	cd cuda/kmeans;			make;	cp kmeans $(CUDA_BIN_DIR)
 	cd cuda/lavaMD;			make;	cp lavaMD $(CUDA_BIN_DIR)
 	cd cuda/lud;			make;	cp cuda/lud_cuda $(CUDA_BIN_DIR)
 	cd cuda/nn;				make;	cp nn $(CUDA_BIN_DIR)
