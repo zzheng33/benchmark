@@ -31,7 +31,10 @@ CUDECOMPLIB=${BUILDDIR}/lib/libcudecomp.so
 CUDECOMPFLIB=${BUILDDIR}/lib/libcudecomp_fort.so
 CUDECOMPMOD=${BUILDDIR}/cudecomp_m.o
 
+# Ensure all necessary include paths are added
 INCLUDES = -I${PWD}/include -I${MPI_HOME}/include -I${CUDA_HOME}/include -I${NCCL_HOME}/include  -I${CUTENSOR_HOME}/include -I${CUDACXX_HOME}/include
+INCLUDES += -I${CUDA_HOME}/targets/x86_64-linux/include # Add target-specific includes
+
 LIBS = -L${CUDA_HOME}/lib64 -L${CUTENSOR_HOME}/lib64 -L${NCCL_HOME}/lib -lnccl -lcutensor -lcudart
 FLIBS = -cudalib=nccl,cutensor -lstdc++ -L${CUDA_HOME}/lib64
 BUILD_LIBS = -L${BUILDDIR}/lib -lcudecomp -L${CUDA_HOME}/lib64 -L${CUFFT_HOME}/lib64 -lcudart -lcufft
