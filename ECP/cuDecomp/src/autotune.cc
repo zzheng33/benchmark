@@ -35,7 +35,7 @@
 
 #include "/opt/nvidia/hpc_sdk/Linux_x86_64/2024/cuda/include/cuda_runtime.h"
 #include <mpi.h>
-#include <nccl.h>
+#include "/opt/nvidia/hpc_sdk/Linux_x86_64/2024/comm_libs/nccl/include/nccl.h"
 #ifdef ENABLE_NVSHMEM
 #include <nvshmem.h>
 #include <nvshmemx.h>
