@@ -178,7 +178,7 @@ int main()
     //=============== Get Input and Label =================
     float* images = (float*)malloc(batch*image_height*image_width*image_channel*sizeof(float));
     unsigned* image_labels = (unsigned*)malloc(batch*sizeof(unsigned));
-    string cifar10_dir = "/home/lian599/data/cifar10c/test_batch.bin";
+    string cifar10_dir = "/home/cc/data/cifar10c/test_batch.bin";
     read_CIFAR10_normalized(cifar10_dir, images, image_labels, batch);
 
     //================ Get Weight =================
