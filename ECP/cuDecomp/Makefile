@@ -2,6 +2,7 @@
 PWD=$(shell pwd)
 CONFIGFILE=${PWD}/configs/nvhpcsdk.conf
 include ${CONFIGFILE}
+CUDA_HOME ?= /usr/local/cuda
 
 MPICXX ?= ${MPI_HOME}/bin/mpicxx
 MPIF90 ?= ${MPI_HOME}/bin/mpif90
