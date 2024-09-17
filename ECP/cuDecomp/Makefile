@@ -2,11 +2,11 @@
 PWD=$(shell pwd)
 CONFIGFILE=${PWD}/configs/nvhpcsdk.conf
 include ${CONFIGFILE}
-CUDA_HOME ?= /opt/nvidia/hpc_sdk/Linux_x86_64/2024/cuda
+CUDA_HOME=/opt/nvidia/hpc_sdk/Linux_x86_64/2024/cuda
 
-MPICXX ?= ${MPI_HOME}/bin/mpicxx
-MPIF90 ?= ${MPI_HOME}/bin/mpif90
-NVCC ?= ${CUDA_HOME}/bin/nvcc
+MPICXX=${MPI_HOME}/bin/mpicxx
+MPIF90=${MPI_HOME}/bin/mpif90
+NVCC=${CUDA_HOME}/bin/nvcc
 
 CXXFLAGS=-O3 -std=c++14
 # Note: compiling autotune.cc with -O1 due to double free issues otherwise
