@@ -33,7 +33,7 @@
 #include <string>
 #include <vector>
 
-#include <cuda_runtime.h>
+#include "/opt/nvidia/hpc_sdk/Linux_x86_64/2024/cuda/include/cuda_runtime.h"
 #include <mpi.h>
 #include <nccl.h>
 #ifdef ENABLE_NVSHMEM
