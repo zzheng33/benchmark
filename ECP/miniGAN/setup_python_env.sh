@@ -13,9 +13,9 @@ source minigan_env/bin/activate
 
 ${PIP} install numpy 
 ${PIP} install wheel
-${PIP} install torch
+${PIP} install torch==1.13.1 
 ${PIP} install torchvision
-${PIP} install horovod==0.18.2
+${PIP} install horovod
 ${PIP} install tensorboard
 ${PIP} install matplotlib
 
