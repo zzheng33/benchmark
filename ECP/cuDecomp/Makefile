@@ -14,9 +14,10 @@ CXXFLAGS_O1=-O1 -std=c++14
 NVFLAGS=-O3 -std=c++14 --ptxas-options=-v -cudart shared
 
 
-NVFLAGS = -O3 -std=c++14 --ptxas-options=-v -cudart shared
-NVFLAGS += -gencode=arch=compute_80,code=sm_80
-
+CUDA_CC_LIST=80
+CUDA_CC_LAST := $(lastword $(sort ${CUDA_CC_LIST}))
+NVFLAGS += $(foreach CC,${CUDA_CC_LIST},-gencode=arch=compute_${CC},code=sm_${CC})
+NVFLAGS += -gencode=arch=compute_${CUDA_CC_LAST},code=compute_${CUDA_CC_LAST}
 
 
 BUILDDIR=${PWD}/build
@@ -34,10 +35,8 @@ CUDECOMPMOD=${BUILDDIR}/cudecomp_m.o
 
 # Ensure all necessary include paths are added
 INCLUDES = -I${PWD}/include -I${MPI_HOME}/include -I${CUDA_HOME}/include -I${NCCL_HOME}/include  -I${CUTENSOR_HOME}/include -I${CUDACXX_HOME}/include
-INCLUDES += -I${CUDA_HOME}/targets/x86_64-linux/include # Add target-specific includes
 
-LIBS = -L/opt/nvidia/hpc_sdk/Linux_x86_64/2024/cuda/lib64 -L/opt/nvidia/hpc_sdk/Linux_x86_64/2024/comm_libs/nccl/lib \
-       -lnccl -lcudart -lcuda -lnvidia-ml -lnvshmem_host -lnvshmem_device
+LIBS = -L${CUDA_HOME}/lib64 -L${CUTENSOR_HOME}/lib64 -L${NCCL_HOME}/lib -lnccl -lcutensor -lcudart
 
 FLIBS = -cudalib=nccl,cutensor -lstdc++ -L${CUDA_HOME}/lib64
 BUILD_LIBS = -L${BUILDDIR}/lib -lcudecomp -L${CUDA_HOME}/lib64 -L${CUFFT_HOME}/lib64 -lcudart -lcufft
