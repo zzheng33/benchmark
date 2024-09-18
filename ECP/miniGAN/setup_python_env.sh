@@ -11,7 +11,7 @@ ${PYT} -m venv minigan_env
 
 source minigan_env/bin/activate
 
-${PIP} install numpy 
+${PIP} install "numpy<2"
 ${PIP} install wheel
 ${PIP} install torch==1.13.1 
 ${PIP} install torchvision
