@@ -13,8 +13,8 @@ source minigan_env/bin/activate
 
 ${PIP} install numpy 
 ${PIP} install wheel
-${PIP} install torch==1.4.0
-${PIP} install torchvision==0.5.0
+${PIP} install torch
+${PIP} install torchvision
 ${PIP} install horovod==0.18.2
 ${PIP} install tensorboard
 ${PIP} install matplotlib
