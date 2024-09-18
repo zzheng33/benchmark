@@ -776,7 +776,8 @@ class miniGAN:
             else:
                raise ValueError('\'dim_mode\' must be {2} or {3}.')
 
-            train_tensor_x = torch.tensor(np.load(bird_filename))
+            train_tensor_x = torch.tensor(np.load(bird_filename), dtype=torch.float32)
+
             train_tensor_y = torch.ones([self.minigan_args.num_images, 1], dtype=float)
 
             train_dataset = torch.utils.data.TensorDataset(train_tensor_x, train_tensor_y)
