@@ -1,16 +1,11 @@
 #!/bin/bash
 
-if [[ ! -f ~/.kaggle/kaggle.json ]]; then
-  echo -n "Kaggle username: "
-  read USERNAME
-  echo
-  echo -n "Kaggle API key: "
-  read APIKEY
+USERNAME="zhongzheng0522"
+APIKEY="0674d6f705e296db9c502b41e9dfce8e"
 
-  mkdir -p ~/.kaggle
-  echo "{\"username\":\"$USERNAME\",\"key\":\"$APIKEY\"}" > ~/.kaggle/kaggle.json
-  chmod 600 ~/.kaggle/kaggle.json
-fi
+mkdir -p ~/.kaggle
+echo "{\"username\":\"$USERNAME\",\"key\":\"$APIKEY\"}" > ~/.kaggle/kaggle.json
+chmod 600 ~/.kaggle/kaggle.json
 
 pip install kaggle --upgrade
 
