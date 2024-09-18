@@ -13,7 +13,7 @@ CXXFLAGS=-O3 -std=c++14
 CXXFLAGS_O1=-O1 -std=c++14
 NVFLAGS=-O3 -std=c++14 --ptxas-options=-v -cudart shared
 
-CUDA_CC_LIST ?= 60 70 80
+CUDA_CC_LIST=80
 CUDA_CC_LAST := $(lastword $(sort ${CUDA_CC_LIST}))
 NVFLAGS += $(foreach CC,${CUDA_CC_LIST},-gencode=arch=compute_${CC},code=sm_${CC})
 NVFLAGS += -gencode=arch=compute_${CUDA_CC_LAST},code=compute_${CUDA_CC_LAST}
