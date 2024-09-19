@@ -8,6 +8,7 @@ echo "{\"username\":\"$USERNAME\",\"key\":\"$APIKEY\"}" > ~/.kaggle/kaggle.json
 chmod 600 ~/.kaggle/kaggle.json
 
 pip install kaggle --upgrade
+export PATH=$PATH:/home/cc/.local/bin
 
 kaggle competitions download -c carvana-image-masking-challenge -f train_hq.zip
 unzip train_hq.zip
