@@ -50,14 +50,6 @@ def train_model(
     n_train = len(dataset) - n_val
     train_set, val_set = random_split(dataset, [n_train, n_val], generator=torch.Generator().manual_seed(0))
     
-    # Create a subset of the dataset with 20% of the original data
-    subset_dataset = Subset(dataset, subset_indices)
-    
-    # 3. Split the subset into train / validation partitions
-    n_val = int(len(subset_dataset) * val_percent)
-    n_train = len(subset_dataset) - n_val
-    train_set, val_set = random_split(subset_dataset, [n_train, n_val], generator=torch.Generator().manual_seed(0))
-    
 
     # 3. Create data loaders
     loader_args = dict(batch_size=batch_size, num_workers=32, pin_memory=True)
