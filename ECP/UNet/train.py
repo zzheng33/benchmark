@@ -10,8 +10,9 @@ import torchvision.transforms as transforms
 import torchvision.transforms.functional as TF
 from pathlib import Path
 from torch import optim
-from torch.utils.data import DataLoader, random_split
+from torch.utils.data import DataLoader, random_split, Subset
 from tqdm import tqdm
+import numpy as np
 
 import wandb
 from evaluate import evaluate
@@ -19,8 +20,8 @@ from unet import UNet
 from utils.data_loading import BasicDataset, CarvanaDataset
 from utils.dice_score import dice_loss
 
-dir_img = Path('./data/imgs/')
-dir_mask = Path('./data/masks/')
+dir_img = Path('./data/imgs_small/')
+dir_mask = Path('./data/masks_small/')
 dir_checkpoint = Path('./checkpoints/')
 
 
@@ -48,6 +49,15 @@ def train_model(
     n_val = int(len(dataset) * val_percent)
     n_train = len(dataset) - n_val
     train_set, val_set = random_split(dataset, [n_train, n_val], generator=torch.Generator().manual_seed(0))
+    
+    # Create a subset of the dataset with 20% of the original data
+    subset_dataset = Subset(dataset, subset_indices)
+    
+    # 3. Split the subset into train / validation partitions
+    n_val = int(len(subset_dataset) * val_percent)
+    n_train = len(subset_dataset) - n_val
+    train_set, val_set = random_split(subset_dataset, [n_train, n_val], generator=torch.Generator().manual_seed(0))
+    
 
     # 3. Create data loaders
     loader_args = dict(batch_size=batch_size, num_workers=32, pin_memory=True)
