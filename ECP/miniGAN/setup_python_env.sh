@@ -10,12 +10,15 @@ PYT=python3
 ${PYT} -m venv minigan_env
 
 source minigan_env/bin/activate
+export HOROVOD_CUDA_HOME=/usr/local/cuda
+export HOROVOD_GPU_OPERATIONS=NCCL
+export HOROVOD_MPI_HOME=/usr/lib/x86_64-linux-gnu/openmpi
 
-${PIP} install "numpy<2"
+
 ${PIP} install wheel
 ${PIP} install torchvision==0.13
-${PIP} install horovod
+HOROVOD_CUDA_HOME=/usr/local/cuda HOROVOD_GPU_OPERATIONS=NCCL HOROVOD_MPI_HOME=/usr/lib/x86_64-linux-gnu/openmpi pip install --no-cache-dir horovod[pytorch]
 ${PIP} install tensorboard
 ${PIP} install matplotlib
-
+${PIP} install "numpy<2"
 deactivate
