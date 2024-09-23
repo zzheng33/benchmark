@@ -5,3 +5,5 @@ tqdm==4.64.1
 wandb==0.13.5
 torch
 torchvision
+transformers 
+datasets
