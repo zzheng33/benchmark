@@ -16,7 +16,7 @@ export HOROVOD_MPI_HOME=/usr/lib/x86_64-linux-gnu/openmpi
 
 
 ${PIP} install wheel
-${PIP} install torchvision==0.13
+${PIP} install torchvision==0.14
 HOROVOD_CUDA_HOME=/usr/local/cuda HOROVOD_GPU_OPERATIONS=NCCL HOROVOD_MPI_HOME=/usr/lib/x86_64-linux-gnu/openmpi pip install --no-cache-dir horovod[pytorch]
 ${PIP} install tensorboard
 ${PIP} install matplotlib
