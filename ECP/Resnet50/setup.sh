@@ -12,4 +12,4 @@ python3 imagenet_to_gcs.py \
 --local_scratch_dir=./tf_records \
 --nogcs_upload
 
-sudo mv ./tf_records/validation/* ./tf_records/train/
+# sudo mv ./tf_records/validation/* ./tf_records/train/
