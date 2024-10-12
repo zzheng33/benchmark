@@ -69,8 +69,7 @@ python3 run_pretraining.py \
 
 docker run --gpus all -it --rm -v /home/cc/training/language_model/tensorflow/bert/:/workspace tensorflow/tensorflow:1.15.2-gpu bash
 
-docker run --gpus all -it --rm -v /home/cc/training/language_model/tensorflow/bert/:/workspace tensorflow/tensorflow:2.4.0-gpu bash
-
+docker run --gpus all -it --rm -v /home/cc/benchmark/ECP/bert-large/:/workspace tensorflow/tensorflow:2.4.0-gpu bash
 docker run --gpus all -it --rm -v /home/cc/benchmark/ECP/bert-large/:/workspace bert bash
 
 cd logging
