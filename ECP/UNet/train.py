@@ -238,3 +238,177 @@ if __name__ == '__main__':
             val_percent=args.val / 100,
             amp=args.amp
         )
+
+
+# import argparse
+# import logging
+# import os
+# import random
+# import sys
+# import torch
+# import torch.distributed as dist
+# import torch.nn as nn
+# import torch.nn.functional as F
+# import torchvision.transforms as transforms
+# import torchvision.transforms.functional as TF
+# from pathlib import Path
+# from torch import optim
+# from torch.utils.data import DataLoader, random_split, Subset
+# from torch.utils.data.distributed import DistributedSampler
+# from tqdm import tqdm
+# import numpy as np
+
+# import wandb
+# from evaluate import evaluate
+# from unet import UNet
+# from utils.data_loading import BasicDataset, CarvanaDataset
+# from utils.dice_score import dice_loss
+
+# dir_img = Path('./data/imgs_small/')
+# dir_mask = Path('./data/masks_small/')
+# dir_checkpoint = Path('./checkpoints/')
+
+# def setup_distributed():
+#     # Initialize the distributed environment.
+#     dist.init_process_group("nccl")
+
+# def cleanup_distributed():
+#     dist.destroy_process_group()
+
+# def train_model(
+#         model,
+#         device,
+#         epochs: int = 5,
+#         batch_size: int = 1,
+#         learning_rate: float = 1e-5,
+#         val_percent: float = 0.1,
+#         save_checkpoint: bool = True,
+#         img_scale: float = 0.5,
+#         amp: bool = False,
+#         weight_decay: float = 1e-8,
+#         momentum: float = 0.999,
+#         gradient_clipping: float = 1.0,
+# ):
+#     # 1. Create dataset and handle any exceptions for data loading
+#     try:
+#         dataset = CarvanaDataset(dir_img, dir_mask, img_scale)
+#     except (AssertionError, RuntimeError, IndexError):
+#         dataset = BasicDataset(dir_img, dir_mask, img_scale)
+
+#     # 2. Split into train / validation partitions
+#     n_val = int(len(dataset) * val_percent)
+#     n_train = len(dataset) - n_val
+#     train_set, val_set = random_split(dataset, [n_train, n_val], generator=torch.Generator().manual_seed(0))
+
+#     # 3. Create data loaders with DistributedSampler
+#     train_sampler = DistributedSampler(train_set)
+#     val_sampler = DistributedSampler(val_set)
+    
+#     loader_args = dict(batch_size=batch_size, num_workers=8, pin_memory=True)
+#     train_loader = DataLoader(train_set, sampler=train_sampler, shuffle=False, **loader_args)
+#     val_loader = DataLoader(val_set, sampler=val_sampler, shuffle=False, drop_last=True, **loader_args)
+
+#     # 4. Setup optimizer, loss criterion, and learning rate scheduler
+#     optimizer = optim.RMSprop(model.parameters(),
+#                               lr=learning_rate, weight_decay=weight_decay, momentum=momentum, foreach=True)
+#     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'max', patience=5)
+#     grad_scaler = torch.amp.GradScaler(enabled=amp)
+#     criterion = nn.CrossEntropyLoss() if model.module.n_classes > 1 else nn.BCEWithLogitsLoss()
+
+#     global_step = 0
+#     for epoch in range(1, epochs + 1):
+#         model.train()
+#         epoch_loss = 0
+#         train_loader.sampler.set_epoch(epoch)  # Ensure proper shuffling with DistributedSampler
+
+#         with tqdm(total=n_train, desc=f'Epoch {epoch}/{epochs}', unit='img', disable=(dist.get_rank() != 0)) as pbar:
+#             for batch in train_loader:
+#                 images, true_masks = batch['image'], batch['mask']
+
+#                 assert images.shape[1] == model.module.n_channels, \
+#                     f'Network has been defined with {model.module.n_channels} input channels, ' \
+#                     f'but loaded images have {images.shape[1]} channels. Please check that ' \
+#                     'the images are loaded correctly.'
+
+#                 # Move data to device and perform the forward pass
+#                 images = images.to(device=device, dtype=torch.float32, memory_format=torch.channels_last)
+#                 true_masks = true_masks.to(device=device, dtype=torch.long)
+
+#                 with torch.autocast(device.type if device.type != 'mps' else 'cpu', enabled=amp):
+#                     masks_pred = model(images)
+#                     if model.module.n_classes == 1:
+#                         loss = criterion(masks_pred.squeeze(1), true_masks.float())
+#                         loss += dice_loss(F.sigmoid(masks_pred.squeeze(1)), true_masks.float(), multiclass=False)
+#                     else:
+#                         loss = criterion(masks_pred, true_masks)
+#                         loss += dice_loss(
+#                             F.softmax(masks_pred, dim=1).float(),
+#                             F.one_hot(true_masks, model.module.n_classes).permute(0, 3, 1, 2).float(),
+#                             multiclass=True
+#                         )
+                
+#                 # Optimizer and backward pass
+#                 optimizer.zero_grad(set_to_none=True)
+#                 grad_scaler.scale(loss).backward()
+#                 grad_scaler.unscale_(optimizer)
+#                 torch.nn.utils.clip_grad_norm_(model.parameters(), gradient_clipping)
+#                 grad_scaler.step(optimizer)
+#                 grad_scaler.update()
+
+#                 # Logging only on rank 0
+#                 if dist.get_rank() == 0:
+#                     pbar.update(images.shape[0])
+#                     global_step += 1
+#                     epoch_loss += loss.item()
+
+
+
+# def get_args():
+#     parser = argparse.ArgumentParser(description='Train the UNet on images and target masks')
+#     parser.add_argument('--epochs', '-e', metavar='E', type=int, default=5, help='Number of epochs')
+#     parser.add_argument('--batch-size', '-b', dest='batch_size', metavar='B', type=int, default=1, help='Batch size')
+#     parser.add_argument('--learning-rate', '-l', metavar='LR', type=float, default=1e-5, help='Learning rate', dest='lr')
+#     parser.add_argument('--load', '-f', type=str, default=False, help='Load model from a .pth file')
+#     parser.add_argument('--scale', '-s', type=float, default=0.5, help='Downscaling factor of the images')
+#     parser.add_argument('--validation', '-v', dest='val', type=float, default=10.0, help='Percent of the data used as validation (0-100)')
+#     parser.add_argument('--amp', action='store_true', default=False, help='Use mixed precision')
+#     parser.add_argument('--bilinear', action='store_true', default=False, help='Use bilinear upsampling')
+#     parser.add_argument('--classes', '-c', type=int, default=2, help='Number of classes')
+
+#     return parser.parse_args()
+
+
+# if __name__ == '__main__':
+#     args = get_args()
+
+#     # Setup the distributed process group
+#     setup_distributed()
+
+#     # Initialize the device based on local rank
+#     local_rank = int(os.environ["LOCAL_RANK"])
+#     device = torch.device(f'cuda:{local_rank}')
+    
+#     logging.basicConfig(level=logging.INFO if dist.get_rank() == 0 else logging.WARN, format='%(levelname)s: %(message)s')
+#     logging.info(f'Using device {device}')
+
+#     model = UNet(n_channels=3, n_classes=args.classes, bilinear=args.bilinear)
+#     model = model.to(device, memory_format=torch.channels_last)
+
+#     if args.load:
+#         state_dict = torch.load(args.load, map_location=device)
+#         model.load_state_dict(state_dict)
+#         logging.info(f'Model loaded from {args.load}')
+
+#     # Wrap the model with DistributedDataParallel, using local_rank to specify the device
+#     model = torch.nn.parallel.DistributedDataParallel(model, device_ids=[local_rank])
+
+#     train_model(
+#         model=model,
+#         epochs=args.epochs,
+#         batch_size=args.batch_size,
+#         learning_rate=args.lr,
+#         device=device,
+#         img_scale=args.scale,
+#         val_percent=args.val / 100,
+#         amp=args.amp
+#     )
