@@ -14,7 +14,7 @@ echo "1" | gmx_mpi pdb2gmx -f 1UBQ.pdb -o conf.gro -p topol.top -water spce -ign
 gmx_mpi editconf -f conf.gro -o boxed.gro -c -d 15.0 -bt cubic
 gmx_mpi solvate -cp boxed.gro -cs spc216.gro -o solvated.gro -p topol.top
 gmx_mpi grompp -f ions.mdp -c solvated.gro -p topol.top -o ions.tpr -maxwarn 1
-echo "SOL" | gmx_mpi genion -s ions.tpr -o solvated_ions.gro -p topol.top -pname NA -nname CL -neutral -np 100 -nn 100
+echo "SOL" | gmx_mpi genion -s ions.tpr -o solvated_ions.gro -p topol.top -pname NA -nname CL -neutral -np 500 -nn 500
 
 gmx_mpi grompp -f em.mdp -c solvated_ions.gro -p topol.top -o em.tpr
 # mpirun -np 1 gmx_mpi mdrun -v -deffnm em
