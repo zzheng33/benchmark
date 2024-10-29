@@ -1,0 +1,10 @@
+integrator  = steep       ; Algorithm (steepest descent minimization)
+emtol       = 1000.0      ; Stop minimization when the force < 1000.0 kJ/mol/nm
+nsteps      = 50000       ; Maximum number of minimization steps
+
+cutoff-scheme   = Verlet  ; Use the Verlet cutoff scheme
+ns_type     = grid        ; Search grid cells for neighbor lists
+coulombtype = PME         ; Particle Mesh Ewald electrostatics
+rcoulomb    = 1.0         ; Short-range electrostatic cutoff (nm)
+rvdw        = 1.0         ; Short-range van der Waals cutoff (nm)
+pbc         = xyz         ; Periodic boundary conditions in all 3 dimensions
