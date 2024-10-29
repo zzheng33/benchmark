@@ -9,4 +9,4 @@ cmake ../cmake \
   -D GPU_PREC=mixed \
   -D CMAKE_CUDA_COMPILER=/usr/local/cuda/bin/nvcc ..
 
-  make -j32
+make -j32
