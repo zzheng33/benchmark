@@ -1,9 +1,12 @@
 #!/bin/bash
 
 export PATH=/snap/bin:$PATH
+
 cd ./build
 cmake .. -DGMX_MPI=ON -DGMX_BUILD_OWN_FFTW=ON -DGMX_GPU=CUDA -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda
 make -j$(nproc)
+
+
 
 cd ./workdir
 export PATH=$HOME/benchmark/ECP/gromacs/build/bin:$PATH
