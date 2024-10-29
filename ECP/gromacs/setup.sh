@@ -6,7 +6,8 @@ cmake .. -DGMX_MPI=ON -DGMX_BUILD_OWN_FFTW=ON -DGMX_GPU=CUDA -DCUDA_TOOLKIT_ROOT
 make -j$(nproc)
 
 cd ./workdir
-gmx_mpi pdb2gmx -f 1UBQ.pdb -o conf.gro -p topol.top -water spce -ignh
+export PATH=$HOME/benchmark/ECP/gromacs/build/bin:$PATH
+echo "1" | gmx_mpi pdb2gmx -f 1UBQ.pdb -o conf.gro -p topol.top -water spce -ignh
 gmx_mpi editconf -f conf.gro -o boxed.gro -c -d 2.0 -bt cubic
 gmx_mpi solvate -cp boxed.gro -cs spc216.gro -o solvated.gro -p topol.top
 gmx_mpi grompp -f ions.mdp -c solvated.gro -p topol.top -o ions.tpr -maxwarn 1
