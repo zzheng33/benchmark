@@ -4,7 +4,7 @@ export PATH=/snap/bin:$PATH
 export GMX_GPU_DD_COMMS=true
 export GMX_GPU_PME_PP_COMMS=true
 export GMX_FORCE_UPDATE_DEFAULT_GPU=true
-export OMP_NUM_THREADS=64  # Optimize thread usage for MPI
+export OMP_NUM_THREADS=64  
 
 cd ./build
 cmake .. -DGMX_MPI=ON -DGMX_BUILD_OWN_FFTW=ON -DGMX_GPU=CUDA -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda
