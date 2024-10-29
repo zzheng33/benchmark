@@ -1,6 +1,10 @@
 #!/bin/bash
 
 export PATH=/snap/bin:$PATH
+export GMX_GPU_DD_COMMS=true
+export GMX_GPU_PME_PP_COMMS=true
+export GMX_FORCE_UPDATE_DEFAULT_GPU=true
+export OMP_NUM_THREADS=64  # Optimize thread usage for MPI
 
 cd ./build
 cmake .. -DGMX_MPI=ON -DGMX_BUILD_OWN_FFTW=ON -DGMX_GPU=CUDA -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda
@@ -17,7 +21,11 @@ gmx_mpi grompp -f ions.mdp -c solvated.gro -p topol.top -o ions.tpr -maxwarn 1
 echo "SOL" | gmx_mpi genion -s ions.tpr -o solvated_ions.gro -p topol.top -pname NA -nname CL -neutral -np 500 -nn 500
 
 gmx_mpi grompp -f em.mdp -c solvated_ions.gro -p topol.top -o em.tpr
-# mpirun -np 1 gmx_mpi mdrun -v -deffnm em
 
-# gmx_mpi grompp -f md.mdp -c em.gro -p topol.top -o md.tpr
-# mpirun -np 1 gmx_mpi mdrun -v -deffnm md
+# Step 1: Run energy minimization (on CPU)
+echo "Running energy minimization on CPU"
+mpirun -np 1 gmx_mpi mdrun -v -deffnm em -nb cpu
+
+# Step 2: Generate input for MD run
+echo "Generating input for MD run"
+mpirun -np 1 gmx_mpi grompp -f md.mdp -c em.gro -p topol.top -o md.tpr
