@@ -1,6 +1,6 @@
 integrator  = steep       ; Algorithm (steepest descent)
 emtol       = 1000.0      ; Stop minimization if force < 1000.0 kJ/mol/nm
-nsteps      = 300       ; Maximum number of steps
+nsteps      = 5000       ; Maximum number of steps
 
 cutoff-scheme   = Verlet  ; Use the Verlet cutoff scheme
 ns_type     = grid        ; Search neighboring grid cells
