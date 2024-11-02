@@ -26,3 +26,7 @@ CMakeLists.txt.user
 Testing
 /.vs
 /CMakeSettings.json
+!ECP/gromacs/scripts/GMXRC.bash.cmakein
+!ECP/gromacs/scripts/GMXRC.cmakein
+!ECP/gromacs/scripts/GMXRC.csh.cmakein
+!ECP/gromacs/scripts/GMXRC.zsh.cmakein
