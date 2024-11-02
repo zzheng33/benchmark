@@ -22,10 +22,10 @@ echo "SOL" | gmx_mpi genion -s ions.tpr -o solvated_ions.gro -p topol.top -pname
 
 gmx_mpi grompp -f em.mdp -c solvated_ions.gro -p topol.top -o em.tpr
 
-# Step 1: Run energy minimization (on CPU)
-echo "Running energy minimization on CPU"
-mpirun -np 1 gmx_mpi mdrun -v -deffnm em -nb cpu
+# # Step 1: Run energy minimization (on CPU)
+# echo "Running energy minimization on CPU"
+# mpirun -np 1 gmx_mpi mdrun -v -deffnm em -nb cpu
 
-# Step 2: Generate input for MD run
-echo "Generating input for MD run"
-mpirun -np 1 gmx_mpi grompp -f md.mdp -c em.gro -p topol.top -o md.tpr
+# # Step 2: Generate input for MD run
+# echo "Generating input for MD run"
+# mpirun -np 1 gmx_mpi grompp -f md.mdp -c em.gro -p topol.top -o md.tpr
