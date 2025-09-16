@@ -31,8 +31,8 @@
 # To help us fund GROMACS development, we humbly ask that you cite
 # the research papers on the package. Check out https://www.gromacs.org.
 
-cmake_minimum_required(VERSION 3.28)
-cmake_policy(VERSION 3.28)
+cmake_minimum_required(VERSION 3.22)
+cmake_policy(VERSION 3.22)
 
 # CMake modules/macros are in a subdirectory to keep this file cleaner
 # This needs to be set before project() in order to pick up toolchain files
